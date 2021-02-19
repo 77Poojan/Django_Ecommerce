@@ -1,0 +1,76 @@
+{% extends 'myAppForm/base.html' %} {% load static %} {% block title %} Ecom {% endblock title %} {% block body %}
+<h3 class="text-area" style="text-align:center;"><b>User Profile</b></h3>
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<script type="text/javascript">
+    var user = '{{request.user}}'
+
+    function getToken(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getToken('csrftoken')
+
+    function getCookie(name) {
+        // Split cookie string and get all individual name=value pairs in an array
+        var cookieArr = document.cookie.split(";");
+
+        // Loop through the array elements
+        for (var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+
+            /* Removing whitespace at the beginning of the cookie name
+            and compare it with the given string */
+            if (name == cookiePair[0].trim()) {
+                // Decode the cookie value and return
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+
+        // Return null if not found
+        return null;
+    }
+    var cart = JSON.parse(getCookie('cart'))
+
+    if (cart == undefined) {
+        cart = {}
+        console.log('Cart Created!', cart)
+        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    }
+    console.log('Cart:', cart)
+</script>
+
+<div class="row">
+    {% for product in products %}
+    <div class="col-lg-4">
+        <img class="thumbnail" src="{{product.imageURL}}">
+        <div class="box-element product">
+            <h6><strong>{{product.name}}</strong></h6>
+            <hr>
+            <button data-product="{{product.id}}" data-action="add" class="btn btn-outline-secondary add-btn update-cart">Add to Cart</button>
+            <a class="btn btn-outline-success" href="#">View</a>
+            <h4 style="display: inline-block;"><strong>${{product.price}}</strong></h4>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+<br><br>
+<form method="post" action=" " style="margin-left:20px;" novalidate>
+    {% csrf_token %}
+    <button class="btn btn-success" formaction="{% url 'userlogout' %}">Logout</button>
+    <button class="btn btn-success" formaction="{% url 'changepass' %}">Change Password</button>
+</form>
+{%endblock body%}

@@ -1,0 +1,11 @@
+{% extends 'authForm/base.html' %} {% block title %} Home {% endblock title %} {% block body %}
+<h3 class="text-area" style="text-align:center;"><b>Change Password</b></h3>
+<form method="post" action="" style="margin-left:20px;" novalidate>
+    {% csrf_token %} {% for field in form %}
+    <p>
+        {{ field.label_tag }} <br> {{ field }} {{field.errors|striptags}}
+    </p>
+    {% endfor %}
+    <button class="btn btn-success">Save</button>
+</form>
+{%endblock body%}

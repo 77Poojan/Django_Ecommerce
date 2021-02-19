@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .navbar {
+            margin-bottom: 0px;
+            border-radius: 0px;
+        }
+    </style>
+    <title>{% block title%} {% endblock title%}</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4648bb;">
+        <a class="navbar-brand " href="# ">Deals and Dones</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto ">
+                <li class="nav-item">
+                    <a class="nav-link " href="/"><b>Home</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/about"><b>About</b></a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link " href="/services"><b>Services</b></a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link " href="/contacts"><b>Contact</b></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-success" role="alert" id="msg">
+        <h4>{{message}}</h4>
+    </div>{% endfor %} {% endif %} {% block body%} {% endblock body%}
+</body>
+
+</html>
